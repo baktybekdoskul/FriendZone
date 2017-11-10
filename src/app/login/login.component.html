@@ -1,3 +1,47 @@
-<p>
-  login works!
-</p>
+<form [formGroup]="loginForm" (ngSubmit)="doLoginClick()">
+  <div ngClass="width100 padding100">
+    <div ngClass="centered">
+      <p-panel header="Авторизация" [toggleable]="false">
+        <table>
+          <colgroup>
+            <col width="80">
+            <col width="186">
+          </colgroup>
+          <tr>
+            <td>Login</td>
+            <td>
+              <input formControlName="login" type="text" pInputText placeholder="login" ngClass="width100"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td>
+              <input formControlName="password" type="password" pInputText placeholder="password" ngClass="width100"
+                     (keyup)="handleEnter($event)"/>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <a routerLink="/password/restore" class="small-font-size">Забыли пароль?</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div ngClass="loginButtonTop">
+                <button pButton label="Signin" type="button" (click)="doLoginClick()"
+                        style="white-space: nowrap"></button>
+              </div>
+            </td>
+            <td>
+              <div ngClass="loginButtonTop">
+                <button pButton label="Register" type="button" (click)="gotoRegister()">
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </p-panel>
+    </div>
+  </div>
+</form>

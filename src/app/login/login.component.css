@@ -1,0 +1,17 @@
+div.centered {
+  width: 300px;
+  margin: 0 auto;
+}
+input.width100 {
+  width: 100%;
+}
+div.padding100 {
+  padding: 100px 0 0 0;
+}
+div.loginButtonTop {
+  padding: 10px 0 0 0;
+}
+.small-font-size {
+  min-height: 13px;
+  font-size: 0.786em;
+}
