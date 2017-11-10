@@ -3,14 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [
+    imports: [
+      BrowserModule,
+      AppRoutingModule
+    ],
+    declarations: [
     AppComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule
+    LoginComponent,
+    HomeComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
