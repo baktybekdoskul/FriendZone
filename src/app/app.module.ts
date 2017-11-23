@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PasswordRestoreComponent } from './password-restore/password-restore.component';
 import { RegisterComponent } from './register/register.component';
 import {HttpModule} from '@angular/http';
+import {AuthService} from "./services/auth.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     imports: [
@@ -30,7 +32,7 @@ import {HttpModule} from '@angular/http';
     PasswordRestoreComponent,
     RegisterComponent
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

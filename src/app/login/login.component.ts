@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccordionModule} from 'primeng/primeng';
 import {MenuItem} from 'primeng/primeng';
+import {AuthService} from "../services/auth.service";
+import {IStudent} from "../model_interfaces/istudent.interface";
 
 
 @Component({
@@ -18,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _auth: AuthService
   ) {
     this.loginForm = this._fb.group({
       login: ['', Validators.required],
@@ -31,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
   public doLoginClick(): void {
-    console.log('Salam');
+    this._auth.checkSessionThenAuthenticate(this.loginForm.value.login, this.loginForm.value.password);
   }
 
   public gotoRegister(): void {
