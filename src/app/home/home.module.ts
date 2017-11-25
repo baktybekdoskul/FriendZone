@@ -5,10 +5,16 @@ import { MessagesComponent } from './messages/messages.component';
 import { FriendsComponent } from './friends/friends.component';
 import { CoursesComponent } from './courses/courses.component';
 import { RecentPostsComponent } from './recent-posts/recent-posts.component';
-import {AutoCompleteModule, DataScrollerModule, DataTableModule, DragDropModule, TabViewModule} from "primeng/primeng";
+import {
+  AutoCompleteModule, ButtonModule, DataScrollerModule, DataTableModule, DragDropModule,
+  TabViewModule
+} from "primeng/primeng";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {CoursesService} from "./courses/courses.service";
+import { CoursePageComponent } from './course-page/course-page.component';
+import {PostService} from "./services/post.service";
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   imports: [
@@ -20,9 +26,10 @@ import {CoursesService} from "./courses/courses.service";
     DataScrollerModule,
     DragDropModule,
     DataTableModule,
+    ButtonModule,
     AutoCompleteModule
   ],
-  declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent],
-  providers: [CoursesService]
+  declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent, CoursePageComponent, ChatComponent],
+  providers: [CoursesService, PostService]
 })
 export class HomeModule { }

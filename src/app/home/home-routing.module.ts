@@ -6,6 +6,8 @@ import {FriendsComponent} from "./friends/friends.component";
 import {CoursesComponent} from "./courses/courses.component";
 import {RecentPostsComponent} from "./recent-posts/recent-posts.component";
 import {MessagesComponent} from "./messages/messages.component";
+import {CoursePageComponent} from "./course-page/course-page.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const routes: Routes = [
   {
@@ -16,6 +18,8 @@ const routes: Routes = [
       {path: 'messages', component: MessagesComponent},
       {path: 'friends', component: FriendsComponent},
       {path: 'courses', component: CoursesComponent},
+      {path: 'chat/:dialogid', component: ChatComponent},
+      {path: 'course-page/:id', component: CoursePageComponent},
       {path: '**', component: RecentPostsComponent}
     ]
   },

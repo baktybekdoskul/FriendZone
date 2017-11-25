@@ -78,4 +78,18 @@ export class CoursesComponent implements OnInit {
     }
     return filtered;
   }
+
+
+  addCourse(courseId: number) {
+    console.log(courseId + '  yeasdf');
+  }
+
+  getIsInMyCourses(course_id: number) {
+    for ( let i=0; i < this.myCourses.length; i++) {
+      if (this.myCourses[i].id === course_id) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

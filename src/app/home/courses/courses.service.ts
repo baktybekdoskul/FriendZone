@@ -21,20 +21,21 @@ export class CoursesService {
       id: 958,
       abbr: 'sshs789',
       course_title: 'Philosophy'
-    },{
-      id: 115,
-      abbr: 'math121',
-      course_title: 'Linear Algebra with its apps'
     },
     {
-      id: 117,
-      abbr: 'phys121',
-      course_title: 'Mechanic'
+      id: 456,
+      abbr: 'math187',
+      course_title: 'Discrete maths'
     },
     {
-      id: 958,
-      abbr: 'sshs789',
-      course_title: 'Philosophy'
+      id: 875,
+      abbr: 'phys174',
+      course_title: 'Optics'
+    },
+    {
+      id: 1221,
+      abbr: 'sshs144',
+      course_title: 'Politics'
     }
   ];
   myCourses: IcourseInterface[] = [
