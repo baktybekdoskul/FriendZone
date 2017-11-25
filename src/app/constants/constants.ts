@@ -8,4 +8,5 @@ export const LS_CURRENT_USER_OBJECT = 'currentUserObject';
 const SYS_PROTOCOL = 'http';
 const SYS_HOST = environment.rest_host;
 const SYS_PORT = environment.rest_port;
-export const SYS_ORIGIN = SYS_PROTOCOL + '://' + SYS_HOST + ':' + SYS_PORT;
+ export const SYS_ORIGIN = SYS_PROTOCOL + '://' + SYS_HOST + ':' + SYS_PORT;
+//export const SYS_ORIGIN = '';

@@ -7,12 +7,11 @@ import {PasswordRestoreComponent} from "./password-restore/password-restore.comp
 import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
   {path: 'password/restore', component: PasswordRestoreComponent},
   {path: 'register', component: RegisterComponent},
-  {path: '**', redirectTo: ''}
+  {path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({

@@ -5,6 +5,6 @@
 
 export const environment = {
   rest_host: 'localhost',
-  rest_port: '8080',
+  rest_port: '3000',
   production: false
 };

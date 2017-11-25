@@ -1,0 +1,161 @@
+ul.sidenav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  #overflow: hidden;
+  width: 100%;
+  height: 72px;
+  position: fixed;
+  top: 0;
+  z-index:901;
+  border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+ul.sidenav li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+ul.sidenav li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+ul.sidenav li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+div.content {
+  margin-top: 72px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.btn_exit {
+  float: none;
+}
+
+ul.sidenav li a {
+  float: left;
+  padding: 27px 15px;
+}
+
+.btn_exit {
+  float: right;
+}
+
+@media screen and (max-width: 400px) {
+
+  ul.sidenav li a, .btn_exit {
+    text-align: center;
+    float: none;
+  }
+  ul.sidenav li a {padding:10px;}
+  ul.sidenav {
+    height: auto;
+  }
+  ul.left_menu { margin-top: 111px !important; }
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+}
+
+a.logo_link {
+  padding: 0 !important;
+}
+a.logo_link:hover {
+  color: inherit !important;
+  background: inherit !important;
+}
+
+ul.left_menu {
+  background-color: #f1f1f1;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  z-index: 900;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  overflow: auto;
+  -webkit-box-shadow: 2px 0 10px 0 rgba(199,199,199,1);
+  -moz-box-shadow: 2px 0 10px 0 rgba(199,199,199,1);
+  box-shadow: 2px 0 10px 0 rgba(199,199,199,1);
+  font-size: 0.9em;
+}
+ul.left_menu>li.group {
+  margin: 4px;
+  padding: 10px;
+  background-color: palegreen;
+  color: green;
+  text-align: center;
+  border-bottom: rgb(199, 199, 199) solid 1px;
+}
+ul.left_menu li a {
+  display: block;
+  color: navy;
+  padding: 10px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  margin: 4px;
+}
+ul.left_menu li a:hover {
+  color: ghostwhite;
+  background: steelblue;
+  border-radius: 3px;
+  margin: 4px;
+}
+ul.left_menu>li>a>span {
+  padding-right: 7px;
+}
+
+/* dropdown */
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  #text-align: center;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  #background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  #padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: grid;
+}
+
+li.dropdown.btn_exit > div >a {
+  padding: 0 10px 0 10px;
+  margin: 0;
+}
