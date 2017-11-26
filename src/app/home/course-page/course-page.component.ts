@@ -18,7 +18,7 @@ export class CoursePageComponent implements OnInit {
 
   ngOnInit() {
     this.id = this._route.snapshot.paramMap.get('id');
-    this._postService.getCoursePostsById(this.id).subscribe((res) => this.coursePosts = res);
+    this._postService.getCoursePostsById(+this.id).subscribe((res) => this.coursePosts = res);
   }
 
   goToPostCommentsPage(postId: number) {

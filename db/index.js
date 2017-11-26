@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-var connectionString = 'postgresql://FriendZoneAdmin:test123@localhost/FriendZoneDB';
+var connectionString = 'postgresql://postgres:postgres@localhost/mydb';
 var pool = new Pool({
     connectionString: connectionString
 });

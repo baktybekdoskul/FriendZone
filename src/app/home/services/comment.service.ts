@@ -40,7 +40,7 @@ export class CommentService {
     const postComments: IcommentInterface[] = [];
     for (let i = 0; i < this.allComments.length; i++) {
       if (this.allComments[i].post_id === post_id) {
-        postComments.push(this.allComments[i]); 
+        postComments.push(this.allComments[i]);
       }
     }
     return of(postComments);
