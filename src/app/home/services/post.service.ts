@@ -37,11 +37,11 @@ export class PostService {
   ] ;
   constructor() {}
 
-  public getCoursePostsById(id: string|number): Observable< IpostInterface[] > {
+  public getCoursePostsById(id: number): Observable< IpostInterface[] > {
     const resultPosts: IpostInterface[] = [];
     for (let i = 0; i < this.allPosts.length; i++) {
       if (this.allPosts[i].course_id === id) {
-        resultPosts.concat(this.allPosts[i]);
+        resultPosts.push(this.allPosts[i]);
       }
     }
     return of(resultPosts);

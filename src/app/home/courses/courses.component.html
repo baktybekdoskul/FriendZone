@@ -38,7 +38,7 @@
           </div>
           <div class="ui-grid-col-1">
             <a *ngIf="!getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="addCourse(course.id)"><span class="fa fa-icon fa-plus" style="font-size: 1.1em;"></span></a>
-            <span *ngIf="getIsInMyCourses(course.id)" class="fa fa-icon fa-check" style="font-size: 1.1em;"></span>
+            <a *ngIf="getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="goToCoursePage(course.id)"><span class="fa fa-icon fa-check" style="font-size: 1.1em;"></span></a>
           </div>
         </div>
       </div>

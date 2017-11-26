@@ -3,6 +3,7 @@ import {TabViewModule, TabView, TabPanel, DataScroller, DragDropModule, DataTabl
 import {IcourseInterface} from "../../model_interfaces/icourse.interface";
 import { NgModel } from '@angular/forms';
 import {CoursesService} from "./courses.service";
+import {Router, RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-courses',
@@ -16,7 +17,8 @@ export class CoursesComponent implements OnInit {
   allCourses: IcourseInterface[];
   myCourses: IcourseInterface[];
   filteredCourses: IcourseInterface[] ;
-  constructor(private courseService: CoursesService) { }
+  constructor(private courseService: CoursesService,
+              private router: Router) { }
 
   ngOnInit() {
     this.courseService.getAllCourses().subscribe((courses: IcourseInterface[]) => { this.allCourses = courses ; this.filteredCourses = this.allCourses; });
@@ -82,6 +84,10 @@ export class CoursesComponent implements OnInit {
 
   addCourse(courseId: number) {
     console.log(courseId + '  yeasdf');
+  }
+
+  goToCoursePage(courseId: number): void {
+    this.router.navigate(['/home/course-page/' + courseId]);
   }
 
   getIsInMyCourses(course_id: number) {

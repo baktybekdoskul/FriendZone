@@ -1,0 +1,15 @@
+<p>
+  comments works!
+</p>
+<li *ngFor="let comment of postComments">
+  <p-panel header="{{comment.studentId}}" [toggleable]="true">
+    <p>{{comment.content}}</p>
+    <br/>
+    <p ngClass="date">{{ comment.date | date:'medium'}}</p>
+  </p-panel>
+  <br/>
+  <br/>
+</li>
+<p-footer>
+  <button pButton type="button" (click)="addComment()" icon="fa-plus" label="Leave comment" class="ui-button-success"></button>
+</p-footer>

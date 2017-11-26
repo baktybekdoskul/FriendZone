@@ -8,7 +8,7 @@ import {of} from "rxjs/observable/of";
 export class CoursesService {
   allCourses: IcourseInterface[] = [
     {
-      id: 115,
+      id: 121,
       abbr: 'math121',
       course_title: 'Linear Algebra with its apps'
     },
@@ -40,7 +40,7 @@ export class CoursesService {
   ];
   myCourses: IcourseInterface[] = [
     {
-      id: 115,
+      id: 121,
       abbr: 'math121',
       course_title: 'Linear Algebra with its apps'
     },
