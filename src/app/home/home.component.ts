@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {IMenuItem} from "../model_intfs/IMenuItem.interface";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

@@ -4,6 +4,9 @@
                     placeholder="Abbreviation" [minLength]="1"></p-autoComplete>
     <p-autoComplete [(ngModel)]="course" [suggestions]="filteredCourses" (completeMethod)="getCourseTitle($event)" field="course_title" [size]="30"
                     placeholder="Course title" [minLength]="1"></p-autoComplete>
+    <br/>
+    <br/>
+    <br/>
     <!--p-dataScroller [value]="filteredCourses" [rows]="10">
       <ng-template let-course pTemplate="item">
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">

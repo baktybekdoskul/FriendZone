@@ -1,3 +1,15 @@
 <p>
   recent-posts works!
 </p>
+<li *ngFor="let post of recentPosts">
+  <p-panel header="{{post.student_id}}" [toggleable]="true">
+    <p>{{post.content}}</p>
+    <br/>
+    <p ngClass="date">{{ post.date | date:'medium'}}</p>
+  </p-panel>
+  <p-footer>
+    <button pButton type="button" (click)="goToPostCommentsPage(post.id)" icon="fa-comment" label="Comments" class="ui-button-success"></button>
+  </p-footer>
+  <br/>
+  <br/>
+</li>

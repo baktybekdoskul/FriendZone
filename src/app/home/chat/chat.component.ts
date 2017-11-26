@@ -4,6 +4,7 @@ import { Socket } from 'ng-socket-io';
 import {ActivatedRoute} from "@angular/router";
 import {ImessageInterface} from "../../model_interfaces/imessage.interface";
 import axios from 'axios';
+import {SYS_ORIGIN} from "../../constants/constants";
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -36,7 +37,7 @@ export class ChatComponent implements OnInit {
 
       }
     });
-    axios.get('/api/auth/checksession').then(function(res){
+    axios.get(SYS_ORIGIN+'/api/auth/checksession').then(function(res){
       outerThis.myId=res.data.id;
     })
   }
@@ -44,6 +45,7 @@ export class ChatComponent implements OnInit {
     var outerThis = this;
     console.log(this.messgs);
     this.socket.emit("msg", {chats_id: outerThis.dialogeId, content: messageText});
+    this.messageText = '';
   }
 
 }

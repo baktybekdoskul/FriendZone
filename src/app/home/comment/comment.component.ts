@@ -10,15 +10,17 @@ import {IcommentInterface} from "../../model_interfaces/icomment.interface";
 })
 export class CommentComponent implements OnInit {
   postComments: IcommentInterface[];
+  comment: IcommentInterface = {};
+  postId: string;
   constructor(private commentService: CommentService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const postId = this.route.snapshot.paramMap.get('id');
-    console.log(postId);
-    this.commentService.getPostCommentsById(+postId).subscribe((res: IcommentInterface[]) => this.postComments = res);
+     this.postId = this.route.snapshot.paramMap.get('id');
+    this.commentService.getPostCommentsById(+this.postId).subscribe((res: IcommentInterface[]) => this.postComments = res);
   }
-  addComment() {
-    console.log('added a comment')
+  addComment(content: string) {
+    console.log(content + '  ' + this.postId);
+    this.comment.content = '';
   }
 }

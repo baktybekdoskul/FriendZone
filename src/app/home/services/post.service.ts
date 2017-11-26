@@ -47,4 +47,7 @@ export class PostService {
     return of(resultPosts);
   }
 
+  public getRecentPosts(): Observable<IpostInterface[]> {
+    return of(this.allPosts);
+  }
 }

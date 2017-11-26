@@ -11,5 +11,7 @@
   <br/>
 </li>
 <p-footer>
-  <button pButton type="button" (click)="addComment()" icon="fa-plus" label="Leave comment" class="ui-button-success"></button>
+  <textarea pInputTextarea [(ngModel)]="comment.content"></textarea>
+  <br/>
+  <button pButton type="button" (click)="addComment(comment.content)" icon="fa-plus" label="Leave comment" class="ui-button-success"></button>
 </p-footer>
