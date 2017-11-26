@@ -11,12 +11,13 @@ import {
 } from "primeng/primeng";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
-import {CoursesService} from "./courses/courses.service";
 import { CoursePageComponent } from './course-page/course-page.component';
 import {PostService} from "./services/post.service";
 import { ChatComponent } from './chat/chat.component';
 import { CommentComponent } from './comment/comment.component';
 import {CommentService} from "./services/comment.service";
+import {CoursesService} from "./services/courses.service";
+import {StudentService} from "./services/student.service";
 
 @NgModule({
   imports: [
@@ -33,6 +34,6 @@ import {CommentService} from "./services/comment.service";
     PanelModule
   ],
   declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent, CoursePageComponent, ChatComponent, CommentComponent],
-  providers: [CoursesService, PostService, CommentService]
+  providers: [CoursesService, PostService, CommentService, StudentService]
 })
 export class HomeModule { }

@@ -2,8 +2,8 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 import {TabViewModule, TabView, TabPanel, DataScroller, DragDropModule, DataTable, AutoCompleteModule, AutoComplete} from 'primeng/primeng';
 import {IcourseInterface} from "../../model_interfaces/icourse.interface";
 import { NgModel } from '@angular/forms';
-import {CoursesService} from "./courses.service";
 import {Router, RouterModule} from "@angular/router";
+import {CoursesService} from "../services/courses.service";
 
 @Component({
   selector: 'app-courses',

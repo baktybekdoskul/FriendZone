@@ -1,5 +1,56 @@
 <p-tabView>
-  <p-tabPanel header="All students"></p-tabPanel>
-  <p-tabPanel header="My friends"></p-tabPanel>
-  <p-tabPanel header="Requested"></p-tabPanel>
+  <p-tabPanel header="All students">
+    <p-autoComplete [(ngModel)]="student" [suggestions]="filteredStudents" (completeMethod)="getStudentByName($event)" field="firstname" [size]="30"
+                    placeholder="Firstname" [minLength]="1"></p-autoComplete>
+              <br/>
+              <br/>
+              <br/>
+    <li *ngFor="let student of filteredStudents">
+      <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-1">
+            <p>{{student.firstname}}</p>
+          </div>
+          <div class="ui-grid-col-1">
+            <p>        </p>
+          </div>
+          <div class="ui-grid-col-2">
+            <p>{{student.lastname}}</p>
+          </div>
+          <div class="ui-grid-col-1">
+            <p>        </p>
+          </div>
+        </div>
+      </div>
+
+    </li>
+  </p-tabPanel>
+  <p-tabPanel header="My friends">
+    <li *ngFor="let student of myFriends">
+      <a href="javascript:void(0)" (click)="goToStudentProfile(student.id)">
+      <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-1">
+            <p>{{student.firstname}}</p>
+          </div>
+          <div class="ui-grid-col-1">
+            <p>        </p>
+          </div>
+          <div class="ui-grid-col-2">
+            <p>{{student.lastname}}</p>
+          </div>
+          <div class="ui-grid-col-1">
+            <p>        </p>
+          </div>
+        </div>
+      </div>
+      </a>
+    </li>
+  </p-tabPanel>
+  <p-tabPanel header="Requested">
+    <p-tabView>
+      <p-tabPanel header="In"></p-tabPanel>
+      <p-tabPanel header="Out"></p-tabPanel>
+    </p-tabView>
+  </p-tabPanel>
 </p-tabView>
