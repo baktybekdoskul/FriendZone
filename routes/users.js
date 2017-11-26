@@ -23,6 +23,7 @@ router.post('/selectcourse', function(req, res, next) {
 });
 
 router.get('/mycourses', function(req, res, next) {
+    console.log(req.session);
     if (req.isAuthenticated()) {
         db.query('SELECT c.id, c.abbr, c.course_title FROM takes t, courses c WHERE t.student_id=$1 AND t.courses_id=c.id', [req.user.id], (err2, res2) => {
             if (err2) {
@@ -92,13 +93,20 @@ router.post('/confirmfriend', function (req, res, next) {
             } else {
                 var activeStud=res2.rows[0].active_stud_id;
                 console.log(res2.rows);
-                if (req.user.id!=activeStud){
+                if (req.user.id!=activeStud && res2.rows[0].status!=1){
                     db.query('UPDATE hasrelationship SET status=1 WHERE first_stud_id=$1 AND second_stud_id=$2', [firstId, secondId], (err3, res3) => {
                         if (err3) {
                             return next(err3)
                         }
-                        res.send(true);
+                        db.query('INSERT INTO chats (first_stud_id, second_stud_id) VALUES ($1, $2)', [firstId, secondId], (err4, res4) => {
+                              if (err4) {
+                                return next(err4)
+                              }
+                              res.send(true);
+                        });
                     });
+
+
                 } else {
                     res.send(false);
                 }
@@ -135,4 +143,36 @@ router.get('/myfriends', function(req, res, next){
     }
 });
 
-module.exports = router;
+module.exports = function(io) {
+
+    io.on( "connection", function( socket )
+    {
+        socket.on('join chat', function(chats_id){
+          console.log(chats_id);
+          db.query('SELECT first_stud_id, second_stud_id FROM chats WHERE id=$1', [chats_id], (err2, res2) => {
+            if (err2) {
+              console.log(err2);
+            } else {
+              if (res2.rows[0].first_stud_id===parseInt(socket.request.user.id) || res2.rows[0].second_stud_id===parseInt(socket.request.user.id)){
+                socket.join(chats_id.toString());
+                console.log('joined '+chats_id);
+              }
+            }
+
+          });
+        });
+        console.log(socket.request.user);
+        /*io.on('msg', function(data){
+            console.log(data);
+        })*/
+      socket.on('msg', function(data){
+        console.log(socket.request.user.email);
+        console.log(data.chats_id);
+        console.log(data.content);
+        socket.emit('newMsg', {student_send: parseInt(socket.request.user.id), chats_id: data.chats_id, content: data.content});
+        socket.to(data.chats_id.toString()).emit('newMsg', {student_send: parseInt(socket.request.user.id), chats_id: data.chats_id, content: data.content});
+      });
+    });
+
+    return router;
+};

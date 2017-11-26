@@ -15,10 +15,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {HomeModule} from "./home/home.module";
 import {RouterModule, Routes} from "@angular/router";
 
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 @NgModule({
     imports: [
       BrowserAnimationsModule,
       BrowserModule,
+      SocketIoModule.forRoot(config),
       RouterModule,
       HttpModule,
       FormsModule,
