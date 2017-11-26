@@ -3,7 +3,6 @@ export interface ImessageInterface {
   status?: boolean;
   content?: string;
   date?: Date;
-  studentSend?: number;
+  student_send?: number;
   chatsId?: number;
-  isMy?: boolean;
 }
