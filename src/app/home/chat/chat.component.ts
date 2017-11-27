@@ -23,24 +23,20 @@ export class ChatComponent implements OnInit {
     var outerThis =this;
     this.dialogeId = +this.route.snapshot.paramMap.get('dialogid');
     this.socket.emit("join chat", outerThis.dialogeId);
+    axios.get('/api/auth/checksession').then(function(res){
+      outerThis.myId=res.data.id;
+    });
+    this.socket.on("msgs_history", function(data){
+      outerThis.messgs = data;
+    });
     this.socket.on("newMsg", function(data){
       console.log(data);
       if (data.chats_id===outerThis.dialogeId){
-        console.log(typeof data.student_send);
-        console.log(typeof +outerThis.myId);
-        if (data.student_send===+outerThis.myId){
-          const mess: ImessageInterface = {content: data.content, isMy: true };
+          const mess: ImessageInterface = {content: data.content, student_send: data.student_send};
           outerThis.messgs.push(mess);
-        } else {
-          const mess: ImessageInterface = {content: data.content, isMy: false };
-          outerThis.messgs.push(mess);
-        }
-
+          console.log(typeof data.student_send);
+        console.log(typeof outerThis.myId);
       }
-    });
-    axios.get(SYS_ORIGIN+'/api/auth/checksession').then(function(res){
-      outerThis.myId=res.data.id;
-      outerThis.user=res.data;
     });
   }
   onclick(messageText: string) {
@@ -49,5 +45,4 @@ export class ChatComponent implements OnInit {
     this.socket.emit("msg", {chats_id: outerThis.dialogeId, content: messageText});
     this.messageText = '';
   }
-
 }

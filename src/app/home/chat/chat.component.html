@@ -2,11 +2,8 @@
   <p *ngIf="user==null">loading</p>
   <p *ngIf="user!=null">{{user}}</p>
 <li *ngFor="let message of messgs">
-  <!--{{message.isMy ? <p style="text-align: right">{{message.content}}</p> :
-  <p style="text-align: left">{{message.content}}</p>}}-->
-  <p *ngIf="message.isMy" style="text-align: right">{{message.content}}</p>
-  <p *ngIf="!message.isMy" style="text-align: left">{{message.content}}</p>
-
+  <p *ngIf="message.student_send==myId" style="text-align: right">{{message.content}}</p>
+  <p *ngIf="message.student_send!=myId" style="text-align: left">{{message.content}}</p>
 </li>
 <input id="input" type="text" size="30" pInputText [(ngModel)]="messageText">
 <button pButton type="button" (click)="onclick(messageText)" label="Click"></button>
