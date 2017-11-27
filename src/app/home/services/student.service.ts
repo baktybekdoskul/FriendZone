@@ -48,13 +48,15 @@ export class StudentService {
       id: 1,
       firstname: 'patrick',
       lastname: 'rivera',
-      email: 'parriv@gmail.com'
+      email: 'parriv@gmail.com',
+      chatsId: 151
     },
     {
       id: 3,
       firstname: 'jassan',
       lastname: 'fizik',
-      email: 'fizikBotan@gmail.com'
+      email: 'fizikBotan@gmail.com',
+      chatsId: 15
     }
   ];
   constructor() { }

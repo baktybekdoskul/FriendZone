@@ -1,6 +1,6 @@
-<p>
-  chat works!
-</p>
+
+  <p *ngIf="user==null">loading</p>
+  <p *ngIf="user!=null">{{user}}</p>
 <li *ngFor="let message of messgs">
   <!--{{message.isMy ? <p style="text-align: right">{{message.content}}</p> :
   <p style="text-align: left">{{message.content}}</p>}}-->

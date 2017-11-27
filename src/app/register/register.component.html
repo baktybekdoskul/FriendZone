@@ -1,3 +1,58 @@
-<p>
-  register works!
-</p>
+<form [formGroup]="registerForm" (ngSubmit)="doLoginClick()">
+  <div ngClass="width100 padding100">
+    <div ngClass="centered">
+      <p-panel header="Registratio" [toggleable]="false">
+        <table>
+          <colgroup>
+            <col width="80">
+            <col width="186">
+          </colgroup>
+          <tr>
+            <td>Student Id</td>
+            <td>
+              <input formControlName="id" type="text" pInputText placeholder="student id" ngClass="width100"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>
+              <input formControlName="email" type="text" pInputText placeholder="email" ngClass="width100"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Firstname</td>
+            <td>
+              <input formControlName="firstname" type="text" pInputText placeholder="firsntame" ngClass="width100" />
+            </td>
+          </tr>
+          <tr>
+            <td>lastname</td>
+            <td>
+              <input formControlName="lastname" type="text" pInputText placeholder="lastname" ngClass="width100" />
+            </td>
+          </tr>
+          <tr>
+            <td>password</td>
+            <td>
+              <input formControlName="password" type="password" pInputText placeholder="password" ngClass="width100" />
+            </td>
+          </tr>
+          <tr>
+            <td>passwordMatch</td>
+            <td>
+              <input formControlName="passwordMatch" type="password" pInputText placeholder="passwordMatch" ngClass="width100" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div ngClass="loginButtonTop">
+                <button pButton label="Register" type="button" (click)="registerClick()"
+                        style="white-space: nowrap"></button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </p-panel>
+    </div>
+  </div>
+</form>

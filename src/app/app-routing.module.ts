@@ -5,13 +5,13 @@ import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {PasswordRestoreComponent} from "./password-restore/password-restore.component";
 import {RegisterComponent} from "./register/register.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'home', component: HomeComponent},
+   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'password/restore', component: PasswordRestoreComponent},
   {path: 'register', component: RegisterComponent},
-  {path: '**', redirectTo: 'home'}
+   {path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({

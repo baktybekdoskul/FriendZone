@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   state = 'small';
   @ViewChild('content')
   private content: ElementRef;
-  constructor(private route: Router) { }
+  constructor(private route: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -42,6 +44,6 @@ export class HomeComponent implements OnInit {
   // }
 
   doLogout() {
-    this.route.navigate(['/login']);
+     this.authService.doLogout();
   }
 }

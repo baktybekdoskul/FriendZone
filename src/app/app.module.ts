@@ -11,11 +11,13 @@ import { PasswordRestoreComponent } from './password-restore/password-restore.co
 import { RegisterComponent } from './register/register.component';
 import {HttpModule} from '@angular/http';
 import {AuthService} from "./services/auth.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
 import {HomeModule} from "./home/home.module";
 import {RouterModule, Routes} from "@angular/router";
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import {AuthGuard} from "./guards/auth.guard";
+import {SessionService} from "./services/session.service";
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -28,6 +30,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
       HttpModule,
       FormsModule,
       PanelModule,
+      HttpClientModule,
       HomeModule,
       InputTextModule,
       ButtonModule,
@@ -42,7 +45,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     PasswordRestoreComponent,
     RegisterComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService, SessionService, AuthGuard, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

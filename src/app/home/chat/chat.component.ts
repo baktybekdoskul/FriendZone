@@ -11,6 +11,7 @@ import {SYS_ORIGIN} from "../../constants/constants";
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+  user: any = null;
   myId: number;
   dialogeId: number;
   messgs: ImessageInterface[] = [];
@@ -39,7 +40,8 @@ export class ChatComponent implements OnInit {
     });
     axios.get(SYS_ORIGIN+'/api/auth/checksession').then(function(res){
       outerThis.myId=res.data.id;
-    })
+      outerThis.user=res.data;
+    });
   }
   onclick(messageText: string) {
     var outerThis = this;

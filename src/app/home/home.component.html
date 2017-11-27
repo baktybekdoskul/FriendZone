@@ -7,16 +7,16 @@
       </div>
     </a>
   </li>
-  <li>
+  <!--li>
     <a class="logo_link" routerLink="/">
       <div>
         <div style="width: 200px;padding:30px;font-family: sans-serif;font-size: 0.9em">Notifications</div>
       </div>
     </a>
-  </li>
+  </li-->
   <li class="btn_exit"><a href="javascript:void(0)" (click)="doLogout()">Logout</a></li>
-  <li class="btn_exit" routerLink="/home/messages"><span class="fa fa-icon fa-envelope-o" style="font-size: 4.0em;"></span> </li>
-  <li class="btn_exit"><a href="javascript:void(0)" (click)="doLogout()">My profile</a></li>
+  <!--li class="btn_exit" routerLink="/home/messages"><span class="fa fa-icon fa-envelope-o" style="font-size: 4.0em;"></span> </li-->
+  <li class="btn_exit"><a routerLink="/home/my-profile">My profile</a></li>
 
 </ul>
 <ul class="left_menu" [@slideInOutAnimation]="state">
@@ -30,11 +30,11 @@
       <span class="fa fa-icon fa-university"></span>Courses
     </a>
   </li>
-  <li >
+  <!--li >
     <a routerLink="messages" (click)="menuClick()">
       <span class="fa fa-icon fa-envelope"></span>Messages
     </a>
-  </li>
+  </li-->
 </ul>
 <div #content class="content ui-widget" style="height: 100%;">
   <router-outlet></router-outlet >

@@ -18,6 +18,7 @@ import { CommentComponent } from './comment/comment.component';
 import {CommentService} from "./services/comment.service";
 import {CoursesService} from "./services/courses.service";
 import {StudentService} from "./services/student.service";
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,7 @@ import {StudentService} from "./services/student.service";
     AutoCompleteModule,
     PanelModule
   ],
-  declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent, CoursePageComponent, ChatComponent, CommentComponent],
+  declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent, CoursePageComponent, ChatComponent, CommentComponent, MyProfileComponent],
   providers: [CoursesService, PostService, CommentService, StudentService]
 })
 export class HomeModule { }
