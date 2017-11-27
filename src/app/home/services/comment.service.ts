@@ -3,46 +3,28 @@ import {IcommentInterface} from "../../model_interfaces/icomment.interface";
 
 import {Observable} from "rxjs/Observable";
 import {of} from "rxjs/observable/of";
+import {HttpClient} from "@angular/common/http";
+import {SYS_ORIGIN} from "../../constants/constants";
+import {Http, Response} from "@angular/http";
+import {CommentComponent} from "../comment/comment.component";
+import {SessionService} from "../../services/session.service";
 
 @Injectable()
 export class CommentService {
-  allComments: IcommentInterface[] = [{
-    id: 1,
-    date: new Date(2017, 11, 26, 17, 6, 21),
-    content: "guy's what was our homework",
-    studentId: 45,
-    post_id: 122
-  },
-    {
-      id: 2,
-      date: new Date(2017, 11, 26, 17, 11, 11),
-      content: "yes it was interesting",
-      studentId: 2,
-      post_id: 122
-    },
-    {
-      id: 3,
-      date: new Date(2017, 11, 27, 9, 31, 21),
-      content: "they give us to make presentation",
-      studentId: 15,
-      post_id: 122
-    },
-    {
-      id: 4,
-      date: new Date(2017, 11, 26, 12, 11, 11),
-      content: "is it final grades?",
-      studentId: 5,
-      post_id: 2
-    }];
-  constructor() { }
+  baseUrl = SYS_ORIGIN + '/api';
+  postCommentsByUrl = this.baseUrl + '/posts/getcomments/';
+  addCommentUrl = this.baseUrl + '/users/addcomment';
+  constructor(private httpClient: HttpClient,
+              private http: Http,
+              private sessionService: SessionService) { }
 
-  getPostCommentsById(post_id: number): Observable<IcommentInterface[]> {
-    const postComments: IcommentInterface[] = [];
-    for (let i = 0; i < this.allComments.length; i++) {
-      if (this.allComments[i].post_id === post_id) {
-        postComments.push(this.allComments[i]);
-      }
-    }
-    return of(postComments);
+  getPostCommentsById(post_id: string): Observable<IcommentInterface[]> {
+    return this.httpClient.get<IcommentInterface[]>(this.postCommentsByUrl + post_id);
+  }
+
+  addComment(content: string, postsId: string) : Observable<IcommentInterface>{
+    console.log(this.addCommentUrl);
+    const httpBody = {content: content, posts_id: postsId};
+    return this.httpClient.post(this.addCommentUrl, httpBody).pipe();
   }
 }

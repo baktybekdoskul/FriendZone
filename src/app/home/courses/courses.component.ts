@@ -4,6 +4,7 @@ import {IcourseInterface} from "../../model_interfaces/icourse.interface";
 import { NgModel } from '@angular/forms';
 import {Router, RouterModule} from "@angular/router";
 import {CoursesService} from "../services/courses.service";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-courses',
@@ -18,27 +19,20 @@ export class CoursesComponent implements OnInit {
   myCourses: IcourseInterface[];
   filteredCourses: IcourseInterface[] ;
   constructor(private courseService: CoursesService,
-              private router: Router) { }
+              private router: Router,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
-    this.courseService.getAllCourses().subscribe((courses: IcourseInterface[]) => { this.allCourses = courses ; this.filteredCourses = this.allCourses; });
-    this.courseService.getMyCourses().subscribe((data: IcourseInterface[]) => this.myCourses = data);
+    this.courseService.getMyCourses().subscribe((data: IcourseInterface[]) => {
+      this.myCourses = data},
+      err => console.log('something is wrong on loading mycourses'),
+      () => {
+        this.courseService.getAllCourses().subscribe((courses: IcourseInterface[]) => { this.allCourses = courses ; this.filteredCourses = this.allCourses; });
+      });
+
   }
 
-  dragStart(event, course: IcourseInterface) {
-    this.draggedCourse = course;
-  }
-  drop(event) {
-    if (this.draggedCourse) {
-      const draggedCourseIndex = this.findIndex(this.draggedCourse);
-      this.selectedCourses = [...this.selectedCourses, this.draggedCourse];
-      this.allCourses = this.allCourses.filter((val, i) => i !== draggedCourseIndex);
-      this.draggedCourse = null;
-    }
-  }
-  dragEnd(event) {
-    this.draggedCourse = null;
-  }
+
 
   findIndex(Course: IcourseInterface) {
     let index = -1;
@@ -82,8 +76,23 @@ export class CoursesComponent implements OnInit {
   }
 
 
-  addCourse(courseId: number) {
-    console.log(courseId + '  yeasdf');
+  addCourse(course: IcourseInterface) {
+    course.student_id = this.sessionService.user.id;
+    this.myCourses.push(course);
+    this.courseService.addCourse(course);
+  }
+
+  unSelectCourse(course: IcourseInterface) {
+    console.log(this.myCourses);
+    for (let i=0; i < this.myCourses.length; i++) {
+      if(this.myCourses[i].id === course.id) {
+        console.log(i);
+        this.myCourses.splice(i,1);
+      }
+    }
+    console.log(this.myCourses);
+    this.courseService.deleteCourse(course.id);
+
   }
 
   goToCoursePage(courseId: number): void {
@@ -98,4 +107,5 @@ export class CoursesComponent implements OnInit {
     }
     return false;
   }
+
 }

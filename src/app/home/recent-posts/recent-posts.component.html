@@ -1,8 +1,5 @@
-<p>
-  recent-posts works!
-</p>
 <li *ngFor="let post of recentPosts">
-  <p-panel header="{{post.student_id}}" [toggleable]="true">
+  <p-panel header="{{post.firstname}} {{post.lastname}} wrote post on {{post.course_title}}" [toggleable]="true">
     <p>{{post.content}}</p>
     <br/>
     <p ngClass="date">{{ post.date | date:'medium'}}</p>

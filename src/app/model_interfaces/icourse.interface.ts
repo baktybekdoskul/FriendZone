@@ -1,5 +1,6 @@
 export interface IcourseInterface {
-  readonly id?: number;
-  readonly abbr?: string;
-  readonly course_title?: string;
+   id?: number;
+   abbr?: string;
+   course_title?: string;
+  student_id?: number;
 }

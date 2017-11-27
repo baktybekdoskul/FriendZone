@@ -1,8 +1,15 @@
-<p>
-  course-page works! {{id}}
-</p>
+<h1>{{course.course_title}}</h1>
+<br/>
+<br/>
+<p-footer>
+  <textarea pInputTextarea [(ngModel)]="post.content"></textarea>
+  <br/>
+  <button pButton type="button" (click)="addPost(post.content)" icon="fa-plus" label="Leave comment" class="ui-button-success"></button>
+</p-footer>
+<br/>
+<br/>
 <li *ngFor="let post of coursePosts">
-  <p-panel header="{{post.student_id}}" [toggleable]="true">
+  <p-panel header="{{post.firstname}}   {{post.lastname}}" [toggleable]="true">
     <p>{{post.content}}</p>
     <br/>
     <p ngClass="date">{{ post.date | date:'medium'}}</p>

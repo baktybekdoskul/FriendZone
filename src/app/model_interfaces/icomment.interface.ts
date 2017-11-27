@@ -4,4 +4,7 @@ export interface IcommentInterface {
   content?: string;
   studentId?: number;
   post_id?: number;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
 }

@@ -2,7 +2,7 @@
   comments works!
 </p>
 <li *ngFor="let comment of postComments">
-  <p-panel header="{{comment.studentId}}" [toggleable]="true">
+  <p-panel header="{{comment.firstname}} {{comment.lastname}}" [toggleable]="true">
     <p>{{comment.content}}</p>
     <br/>
     <p ngClass="date">{{ comment.date | date:'medium'}}</p>

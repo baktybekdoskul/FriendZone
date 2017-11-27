@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CommentService} from "../services/comment.service";
 import {ActivatedRoute} from "@angular/router";
 import {IcommentInterface} from "../../model_interfaces/icomment.interface";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-comment',
@@ -13,14 +14,26 @@ export class CommentComponent implements OnInit {
   comment: IcommentInterface = {};
   postId: string;
   constructor(private commentService: CommentService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private sessionService: SessionService) { }
 
   ngOnInit() {
      this.postId = this.route.snapshot.paramMap.get('id');
-    this.commentService.getPostCommentsById(+this.postId).subscribe((res: IcommentInterface[]) => this.postComments = res);
+    this.commentService.getPostCommentsById(this.postId).subscribe((res: IcommentInterface[]) => {
+      this.postComments = res;
+    }
+    );
   }
   addComment(content: string) {
-    console.log(content + '  ' + this.postId);
+    this.commentService.addComment(content, this.postId).subscribe(
+      res => null,
+      err => null,
+      () => {this.commentService.getPostCommentsById(this.postId).subscribe((res: IcommentInterface[]) => {
+          this.postComments = res;
+        }
+      );}
+      );
+
     this.comment.content = '';
   }
 }

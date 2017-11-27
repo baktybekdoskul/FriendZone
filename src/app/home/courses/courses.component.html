@@ -40,36 +40,49 @@
             <p>        </p>
           </div>
           <div class="ui-grid-col-1">
-            <a *ngIf="!getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="addCourse(course.id)"><span class="fa fa-icon fa-plus" style="font-size: 1.1em;"></span></a>
-            <a *ngIf="getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="goToCoursePage(course.id)"><span class="fa fa-icon fa-check" style="font-size: 1.1em;"></span></a>
+            <a *ngIf="!getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="addCourse(course)"><span class="fa fa-icon fa-plus" style="font-size: 1.1em;"></span></a>
+            <a *ngIf="getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="unSelectCourse(course)"><span class="fa fa-icon fa-check" style="font-size: 1.1em;"></span></a>
           </div>
         </div>
       </div>
 
     </li>
-    <!--div class="ui-grid ui-grid-pad ui-grid-responsive">
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-6 ui-widget-content" style="border-right:0 none">
-          <ul style="margin:0;padding:0">
-            <li *ngFor="let course of allCourses" class="ui-state-default ui-helper-clearfix" pDraggable="courses"
-            (onDragStart)="dragStart($event,course)" (onDragEnd)="dragEnd($event)">
-              <i class="fa fa-arrows fa-2x" style="float:right;margin-top:8px"></i>
-              <div style="margin:8px 0 0 8px;float:left">{{course.abbr}} - {{course.course_title}}</div>
-            </li>
-          </ul>
-        </div>
-        <div class="ui-grid-col-6 ui-widget-content" pDroppable="courses" (onDrop)="drop($event)"
-             [ngClass]="{'ui-state-highlight':droppedCourse}">
-          <p-dataTable [value]="selectedCourses">
-            <p-column field="abbr" header="Abbr"></p-column>
-            <p-column field="course_title" header="Title"></p-column>
-          </p-dataTable>
-        </div>
-      </div>
-    </div-->
+
   </p-tabPanel>
   <p-tabPanel header="My courses">
-    <p-dataScroller [value]="myCourses" [rows]="10">
+    <li *ngFor="let course of myCourses">
+      <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+        <div class="ui-grid-row">
+
+          <div class="ui-grid-col-5">
+            <a href="javascript:void(0)" (click)="goToCoursePage(course.id)">
+              <div class="ui-grid-row">
+                <div class="ui-grid-col-1">
+                  <p>{{course.abbr}}</p>
+                </div>
+                <div class="ui-grid-col-2">
+                  <p>        </p>
+                </div>
+                <div class="ui-grid-col-2">
+                  <p>{{course.course_title}}</p>
+                </div>
+              </div>
+
+            </a>
+          </div>
+
+          <div class="ui-grid-col-1">
+            <p>        </p>
+          </div>
+          <div class="ui-grid-col-1">
+            <a *ngIf="getIsInMyCourses(course.id)" href="javascript:void(0)" (click)="unSelectCourse(course)"><span class="fa fa-icon fa-check" style="font-size: 1.1em;"></span></a>
+          </div>
+        </div>
+      </div>
+
+    </li>
+
+    <!--p-dataScroller [value]="myCourses" [rows]="10">
       <ng-template let-course pTemplate="item">
         <div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
           <div class="ui-grid-row">
@@ -85,6 +98,6 @@
           </div>
         </div>
       </ng-template>
-    </p-dataScroller>
+    </p-dataScroller-->
   </p-tabPanel>
 </p-tabView>

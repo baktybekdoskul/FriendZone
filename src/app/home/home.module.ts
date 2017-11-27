@@ -19,11 +19,13 @@ import {CommentService} from "./services/comment.service";
 import {CoursesService} from "./services/courses.service";
 import {StudentService} from "./services/student.service";
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     HomeRoutingModule,
     TabViewModule,

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/getcourses', function(req, res, next){
   if (req.isAuthenticated()){
-    db.query('SELECT c.id, c.course_title, t.student_id FROM courses c left outer join takes t on (c.id=t.courses_id AND t.student_id=$1)', [req.user.id], (err2, res2) => {
+    db.query('SELECT c.id, c.abbr, c.course_title, t.student_id FROM courses c left outer join takes t on (c.id=t.courses_id AND t.student_id=$1)', [req.user.id], (err2, res2) => {
       if (err2) {
         return next(err2)
       }
@@ -60,7 +60,6 @@ router.get('/mycourses', function(req, res, next) {
     } else {
         res.send(false);
     }
-
 });
 
 router.post('/addpost', function(req, res, next) {
@@ -165,9 +164,11 @@ router.post('/addcomment', function(req, res, next){
     if (req.isAuthenticated()) {
         db.query('INSERT INTO comments (content, student_id, posts_id) VALUES ($1, $2, $3)', [req.body.content, req.user.id, req.body.posts_id], (err2, res2) => {
             if (err2) {
-                return next(err2)
+                return next(err2);
+                console.log('1');
+            } else {
+                res.send(true);
             }
-            res.send(true);
         });
     } else {
         res.send(false);
@@ -203,7 +204,7 @@ router.get('/myfriends', function(req, res, next){
 
 router.get('/newPosts', function(req, res, next){
   if (req.isAuthenticated()){
-    db.query('SELECT c.id, c.abbr, c.course_title, p.id, p.student_id, p.date, p.content FROM courses c, posts p, takes t WHERE c.id=p.courses_id AND t.courses_id=c.id AND t.student_id=$1 ORDER BY p.date DESC', [req.user.id], function(err2, res2){
+    db.query('SELECT c.id as course_id, c.abbr, c.course_title, p.id , p.student_id, p.date, p.content, s.firstname, s.lastname, s.email FROM courses c, posts p, takes t, student s WHERE p.student_id=s.id AND c.id=p.courses_id AND t.courses_id=c.id AND t.student_id=$1 ORDER BY p.date DESC', [req.user.id], function(err2, res2){
       if (err2){
         return next(err2);
       } else {
