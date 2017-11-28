@@ -6,14 +6,15 @@
         <div style="padding:30px;font-family: sans-serif;font-size: 0.9em;">Home</div>
       </div>
     </a>
+
   </li>
-  <!--li>
-    <a class="logo_link" routerLink="/">
+  <li>
+    <a class="logo_link">
       <div>
-        <div style="width: 200px;padding:30px;font-family: sans-serif;font-size: 0.9em">Notifications</div>
+        <div style="width: 200px;padding:30px;font-family: sans-serif;font-size: 0.9em">Welcome {{curUser.firstname}} {{curUser.lastname}}</div>
       </div>
     </a>
-  </li-->
+  </li>
   <li class="btn_exit"><a href="javascript:void(0)" (click)="doLogout()">Logout</a></li>
   <!--li class="btn_exit" routerLink="/home/messages"><span class="fa fa-icon fa-envelope-o" style="font-size: 4.0em;"></span> </li-->
   <li class="btn_exit"><a routerLink="/home/my-profile">My profile</a></li>

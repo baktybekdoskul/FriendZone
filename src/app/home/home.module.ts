@@ -6,7 +6,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { CoursesComponent } from './courses/courses.component';
 import { RecentPostsComponent } from './recent-posts/recent-posts.component';
 import {
-  AutoCompleteModule, ButtonModule, DataScrollerModule, DataTableModule, DragDropModule, PanelModule,
+  AutoCompleteModule, ButtonModule, DataScrollerModule, DataTableModule, DragDropModule, FieldsetModule, PanelModule,
   TabViewModule
 } from "primeng/primeng";
 import {BrowserModule} from "@angular/platform-browser";
@@ -34,9 +34,11 @@ import {HttpClientModule} from "@angular/common/http";
     DataTableModule,
     ButtonModule,
     AutoCompleteModule,
-    PanelModule
+    PanelModule,
+    FieldsetModule
   ],
-  declarations: [MessagesComponent, FriendsComponent, CoursesComponent, RecentPostsComponent, CoursePageComponent, ChatComponent, CommentComponent, MyProfileComponent],
+  declarations: [MessagesComponent, FriendsComponent, CoursesComponent,
+    RecentPostsComponent, CoursePageComponent, ChatComponent, CommentComponent, MyProfileComponent],
   providers: [CoursesService, PostService, CommentService, StudentService]
 })
 export class HomeModule { }

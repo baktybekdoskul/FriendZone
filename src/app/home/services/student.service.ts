@@ -2,69 +2,42 @@ import { Injectable } from '@angular/core';
 import {IStudent} from "../../model_interfaces/istudent.interface";
 import {Observable} from "rxjs/Observable";
 import {of} from "rxjs/observable/of";
+import {SYS_ORIGIN} from "../../constants/constants";
+import {HttpClient} from "@angular/common/http";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class StudentService {
-  allStudents: IStudent[] = [
-    {
-      id: 1,
-      firstname: 'patrick',
-      lastname: 'rivera',
-      email: 'parriv@gmail.com'
-    },
-    {
-      id: 2,
-      firstname: 'almagul',
-      lastname: 'torgayeva',
-      email: 'almaSupergirl@gmail.com'
-    },
-    {
-      id: 3,
-      firstname: 'jassan',
-      lastname: 'fizik',
-      email: 'fizikBotan@gmail.com'
-    },
-    {
-      id: 4,
-      firstname: 'nils',
-      lastname: 'tschampel',
-      email: 'nilstschamp@gmail.com'
-    },
-    {
-      id: 5,
-      firstname: 'rafael',
-      lastname: 'varane',
-      email: 'varraf@gmail.com'
-    },
-    {
-      id: 6,
-      firstname: 'kylian',
-      lastname: 'mbappe',
-      email: 'mbappe1998@gmail.com'
-    }
-  ];
-  myFriends: IStudent[] = [
-    {
-      id: 1,
-      firstname: 'patrick',
-      lastname: 'rivera',
-      email: 'parriv@gmail.com',
-      chatsId: 151
-    },
-    {
-      id: 3,
-      firstname: 'jassan',
-      lastname: 'fizik',
-      email: 'fizikBotan@gmail.com',
-      chatsId: 15
-    }
-  ];
-  constructor() { }
+  baseUrl = SYS_ORIGIN + '/api';
+  allStudentsByUrl = this.baseUrl + '/users/getstudents';
+  myFriendByUrl = this.baseUrl + '/users/myfriends';
+  addFriendByUrl = this.baseUrl + '/users/addfriend';
+  deleteFriendByUrl = this.baseUrl + '/users/deletefriend';
+  confirmFriendByUrl = this.baseUrl + '/users/confirmfriend';
+
+  constructor (private httpClient: HttpClient,
+               private http: Http){ }
+
   public getAllStudents(): Observable<IStudent[]> {
-    return of(this.allStudents);
+    return this.httpClient.get<IStudent[]>(this.allStudentsByUrl);
   }
 
   public getMyFriends(): Observable<IStudent[]> {
-    return of(this.myFriends);
+    return this.httpClient.get<IStudent[]>(this.myFriendByUrl);
+  }
+
+  public addFriend(studentId: number) {
+    console.log(this.addFriendByUrl);
+    const httpBody = {friend_id: studentId};
+    this.http.post(this.addFriendByUrl, httpBody).subscribe(res => console.log(res));
+  }
+  public deleteFriend(studentId: number) {
+    const httpBody = {friend_id: studentId};
+    this.http.post(this.deleteFriendByUrl, httpBody).subscribe(res => console.log(res));
+  }
+
+  public confirmFriend(studentId: number) {
+    const httpBody = {friend_id: studentId};
+    this.http.post(this.confirmFriendByUrl, httpBody).subscribe();
   }
 }

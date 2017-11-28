@@ -4,6 +4,9 @@ import {IpostInterface} from "../../model_interfaces/ipost.interface";
 import {PostService} from "../services/post.service";
 import {CoursesService} from "../services/courses.service";
 import {IcourseInterface} from "../../model_interfaces/icourse.interface";
+import {IcommentInterface} from "../../model_interfaces/icomment.interface";
+import {CommentService} from "../services/comment.service";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-course-page',

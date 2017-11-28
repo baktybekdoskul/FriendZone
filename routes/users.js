@@ -86,11 +86,27 @@ router.post('/addfriend', function (req, res, next) {
             firstId=req.body.friend_id;
             secondId=req.user.id;
         }
-        db.query('INSERT INTO hasrelationship (first_stud_id, second_stud_id, status, active_stud_id) VALUES ($1, $2, $3, $4)', [firstId, secondId, 0, req.user.id], (err2, res2) => {
-            if (err2) {
-                return next(err2)
+
+        db.query('SELECT * FROM hasrelationship WHERE first_stud_id=$1 AND second_stud_id=$2', [firstId, secondId], function(err3, res3) {
+          if (err3) {
+            return next(err3);
+          } else {
+            if (res3.rows.length==0){
+              db.query('INSERT INTO hasrelationship (first_stud_id, second_stud_id, status, active_stud_id) VALUES ($1, $2, $3, $4)', [firstId, secondId, 0, req.user.id], function(err2, res2){
+                if(err2) {
+                  return next(err2)
+                }
+                res.send(true);
+              });
+            } else {
+              db.query('UPDATE hasrelationship SET status=0, active_stud_id=$3 WHERE first_stud_id=$1 AND second_stud_id=$2', [firstId, secondId, req.user.id], function(err2, res2){
+                if(err2) {
+                  return next(err2)
+                }
+                res.send(true);
+              });
             }
-            res.send(true);
+          }
         });
     } else {
         res.send(false);
@@ -190,7 +206,7 @@ router.get('/getstudents', function(req, res, next){
 
 router.get('/myfriends', function(req, res, next){
     if (req.isAuthenticated()) {
-        db.query('SELECT s.email, s.firstname, s.lastname, s.id FROM hasrelationship h, student s WHERE (h.first_stud_id=$1 OR h.second_stud_id=$1) AND (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.status=1 ORDER BY h.last_action desc', [req.user.id], (err2, res2) => {
+        db.query('SELECT h.id as chats_id, s.email, s.firstname, s.lastname, s.id FROM hasrelationship h, student s WHERE (h.first_stud_id=$1 OR h.second_stud_id=$1) AND (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.status=1 ORDER BY h.last_action desc', [req.user.id], (err2, res2) => {
             if (err2) {
                 return next(err2)
             } else {
@@ -216,6 +232,20 @@ router.get('/newPosts', function(req, res, next){
   }
 });
 
+router.get('/getchatinfo/:id', function(req, res, next){
+  if (req.isAuthenticated()){
+    db.query('SELECT s.id, s.firstname, s.lastname, s.email FROM hasrelationship h, student s WHERE (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.id=$2', [req.user.id, res.params.id], function(err2, res2){
+      if (err2){
+        console.log(err2)
+      } else {
+        res.send(res2.rows[0]);
+      }
+    });
+  } else {
+    res.send(null);
+  }
+});
+
 module.exports = function(io) {
 
     io.on( "connection", function( socket )
@@ -231,6 +261,9 @@ module.exports = function(io) {
                 socket.join(chats_id.toString());
                 console.log('joined '+chats_id);
                 db.query('SELECT student_send, chats_id, content FROM messages WHERE chats_id=$1 ORDER BY id', [chats_id], function (err3, res3){
+                  if (err3) {
+                    console.log(err3);
+                  }
                   socket.emit('msgs_history', res3.rows);
                 });
               }

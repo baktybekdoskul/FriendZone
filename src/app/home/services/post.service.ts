@@ -12,6 +12,7 @@ export class PostService {
   private coursePostUrl = this.baseUsersUrl + '/getposts/';
   private newPostsUrl = SYS_ORIGIN + '/api/users' + '/newposts/';
   private addPostUrl = SYS_ORIGIN + '/api/users' + '/addpost';
+  private postInfoByIdUrl = SYS_ORIGIN + '/api/posts/getinfo/'
   constructor(private http: Http,
               private httpClient: HttpClient) {}
 
@@ -28,5 +29,9 @@ export class PostService {
   addPost(content: string, courses_id: string ): Observable<any> {
     const httpBody = {content: content, courses_id: courses_id};
     return this.httpClient.post(this.addPostUrl, httpBody).pipe();
+  }
+
+  getPostInfoById(posts_id: string): Observable<IpostInterface> {
+    return this.httpClient.get<IpostInterface>(this.postInfoByIdUrl + posts_id);
   }
 }

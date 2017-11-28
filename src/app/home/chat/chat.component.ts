@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit {
     var outerThis =this;
     this.dialogeId = +this.route.snapshot.paramMap.get('dialogid');
     this.socket.emit("join chat", outerThis.dialogeId);
-    axios.get('/api/auth/checksession').then(function(res){
+    axios.get(SYS_ORIGIN+'/api/auth/checksession').then(function(res){
       outerThis.myId=res.data.id;
     });
     this.socket.on("msgs_history", function(data){

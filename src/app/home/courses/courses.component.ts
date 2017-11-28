@@ -83,14 +83,12 @@ export class CoursesComponent implements OnInit {
   }
 
   unSelectCourse(course: IcourseInterface) {
-    console.log(this.myCourses);
     for (let i=0; i < this.myCourses.length; i++) {
       if(this.myCourses[i].id === course.id) {
         console.log(i);
         this.myCourses.splice(i,1);
       }
     }
-    console.log(this.myCourses);
     this.courseService.deleteCourse(course.id);
 
   }
