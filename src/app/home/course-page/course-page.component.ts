@@ -32,7 +32,7 @@ export class CoursePageComponent implements OnInit {
   }
 
   addPost(content: string) {
-    this._postService.addPost(content, this.id).subscribe((r) => null, err => null, 
+    this._postService.addPost(content, this.id).subscribe((r) => null, err => null,
       () => this._postService.getCoursePostsById(this.id).subscribe((res) => this.coursePosts = res));
     console.log(content);
     this.post.content = '';
