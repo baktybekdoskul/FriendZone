@@ -14,6 +14,9 @@ export class StudentService {
   addFriendByUrl = this.baseUrl + '/users/addfriend';
   deleteFriendByUrl = this.baseUrl + '/users/deletefriend';
   confirmFriendByUrl = this.baseUrl + '/users/confirmfriend';
+  studIdByUrl = this.baseUrl + '/users/getchatinfo/';
+  requestedInStudentsUrl= this.baseUrl + '/users/requestsin';
+  requestedOutStudentsUrl= this.baseUrl + '/users/requestsout';
 
   constructor (private httpClient: HttpClient,
                private http: Http){ }
@@ -26,18 +29,29 @@ export class StudentService {
     return this.httpClient.get<IStudent[]>(this.myFriendByUrl);
   }
 
-  public addFriend(studentId: number) {
-    console.log(this.addFriendByUrl);
+  public addFriend(studentId: number): Observable<any> {
     const httpBody = {friend_id: studentId};
-    this.http.post(this.addFriendByUrl, httpBody).subscribe(res => console.log(res));
+    return this.httpClient.post(this.addFriendByUrl, httpBody).pipe();
   }
-  public deleteFriend(studentId: number) {
+  public deleteFriend(studentId: number): Observable<any> {
     const httpBody = {friend_id: studentId};
-    this.http.post(this.deleteFriendByUrl, httpBody).subscribe(res => console.log(res));
+    return this.httpClient.post(this.deleteFriendByUrl, httpBody).pipe();
   }
 
-  public confirmFriend(studentId: number) {
+  public confirmFriend(studentId: number): Observable<any> {
     const httpBody = {friend_id: studentId};
-    this.http.post(this.confirmFriendByUrl, httpBody).subscribe();
+    return this.httpClient.post(this.confirmFriendByUrl, httpBody).pipe();
+  }
+
+  public getStudentByDialogId(chatId: string): Observable<IStudent> {
+    return this.httpClient.get<IStudent>(this.studIdByUrl + chatId);
+  }
+
+  public getRequestedInStudents(): Observable<IStudent[]>{
+    return this.httpClient.get<IStudent[]>(this.requestedInStudentsUrl);
+  }
+
+  public getRequestedOutStudents(): Observable<IStudent[]>{
+    return this.httpClient.get<IStudent[]>(this.requestedOutStudentsUrl);
   }
 }

@@ -10,18 +10,20 @@ import {SessionService} from "../../services/session.service";
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
+  studenname: IStudent = {};
   student: IStudent;
   filteredStudents: IStudent[] ;
   allStudents: IStudent[];
   myFriends: IStudent[] = [];
+  reqIn: IStudent[] = [];
+  reqOut: IStudent[] = [];
   constructor(private studentService: StudentService,
               private router: Router,
               private sessionService: SessionService) { }
 
   ngOnInit() {
     this.student  = this.sessionService.user;
-    this.studentService.getAllStudents().subscribe((data: IStudent[]) => {this.allStudents= data; this.filteredStudents = this.allStudents;});
-    this.studentService.getMyFriends().subscribe((data: IStudent[]) => {this.myFriends = data; console.log(this.myFriends[0].chats_id)});
+    this.updateAllStudents();
   }
   getStudentByName(event) {
     let query = event.query;
@@ -53,29 +55,45 @@ export class FriendsComponent implements OnInit {
   }
 
   addFriend(student: IStudent) {
-    this.studentService.addFriend(student.id);
-    student.active_stud_id = this.sessionService.user.id;
-    student.status = 0;
+    this.studentService.addFriend(student.id).subscribe((r) => null, err => null,
+      () => this.updateAllStudents());
   }
 
   deleteFriend(student: IStudent) {
-    for (let i=0; i < this.myFriends.length; i++) {
-      if(this.myFriends[i].id === student.id) {
-        this.myFriends.splice(i,1);
-      }
-    }
-    student.status = null;
-    this.studentService.deleteFriend(student.id);
+    this.studentService.deleteFriend(student.id).subscribe((r) => null, err => null,
+      () => this.updateAllStudents());
 
   }
   getCurrStudentId(student: IStudent): number {
-    console.log(student);
     return this.sessionService.user.id;
   }
   confirmStudent(student: IStudent) {
-    console.log(student);
-    student.status = 1;
-    this.studentService.confirmFriend(student.id);
+    this.studentService.confirmFriend(student.id).subscribe((r) => null, err => null,
+      () => this.updateAllStudents());
   }
 
+  updateAllStudents() {
+    this.studentService.getAllStudents().subscribe(
+      (data: IStudent[]) => {this.allStudents = data; this.filteredStudents = this.allStudents;},
+      err=> null,
+        () => this.studentService.getMyFriends().subscribe(
+          (data: IStudent[]) => {this.myFriends = data;},
+          err=> null,
+          ()=> this.studentService.getRequestedInStudents().subscribe(
+            (data: IStudent[]) => {this.reqIn = data},
+            err =>null,
+            () => this.studentService.getRequestedOutStudents().subscribe(
+              (data: IStudent[]) => {this.reqOut = data},
+              error2 => null,
+              () => console.log('completed')))));
+  }
+
+  public handleEnter(event: KeyboardEvent): void {
+    if (event.keyCode === 8) {
+      this.filteredStudents = this.filterStudentName(this.studenname.firstname, this.allStudents);
+    }
+  }
+  public selectHandle() {
+    this.filteredStudents = this.filterStudentName(this.studenname.firstname, this.allStudents);
+  }
 }

@@ -14,9 +14,11 @@ import {SessionService} from "../../services/session.service";
 export class CoursesComponent implements OnInit {
   selectedCourses: IcourseInterface[] = [];
   draggedCourse: IcourseInterface;
-  course: IcourseInterface;
+  course: IcourseInterface = {};
   allCourses: IcourseInterface[];
   myCourses: IcourseInterface[];
+  courseAbbr = '';
+  courseTitle = '';
   filteredCourses: IcourseInterface[] ;
   constructor(private courseService: CoursesService,
               private router: Router,
@@ -105,5 +107,18 @@ export class CoursesComponent implements OnInit {
     }
     return false;
   }
+  public handleLastDelAbbr(event: KeyboardEvent): void {
+    if (event.keyCode === 8) {
+      this.filteredCourses = this.filterCourseAbbr(this.courseAbbr, this.allCourses);
+    }
+  }
+  public handleLastDelTitle(event: KeyboardEvent): void {
+    if (event.keyCode === 8) {
+      this.filteredCourses = this.filterCourseTitle(this.courseTitle, this.allCourses);
+    }
+  }
 
+  public selectHandle() {
+    this.filteredCourses = this.filterCourseAbbr(this.course.abbr, this.allCourses);
+  }
 }

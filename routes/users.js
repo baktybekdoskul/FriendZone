@@ -218,6 +218,34 @@ router.get('/myfriends', function(req, res, next){
     }
 });
 
+router.get('/requestsin', function(req, res, next){
+  if (req.isAuthenticated()) {
+    db.query('SELECT s.id, s.email, s.firstname, s.lastname, s.id FROM hasrelationship h, student s WHERE (h.first_stud_id=$1 OR h.second_stud_id=$1) AND (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.status=0 AND h.active_stud_id<>$1 ORDER BY h.last_action desc', [req.user.id], (err2, res2) => {
+      if (err2) {
+        return next(err2)
+      } else {
+        res.send(res2.rows);
+  }
+  });
+  } else {
+    res.send(null);
+  }
+});
+
+router.get('/requestsout', function(req, res, next){
+  if (req.isAuthenticated()) {
+    db.query('SELECT s.id, s.email, s.firstname, s.lastname, s.id FROM hasrelationship h, student s WHERE (h.first_stud_id=$1 OR h.second_stud_id=$1) AND (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.status=0 AND h.active_stud_id=$1 ORDER BY h.last_action desc', [req.user.id], (err2, res2) => {
+      if (err2) {
+        return next(err2)
+      } else {
+        res.send(res2.rows);
+  }
+  });
+  } else {
+    res.send(null);
+  }
+});
+
 router.get('/newPosts', function(req, res, next){
   if (req.isAuthenticated()){
     db.query('SELECT c.id as course_id, c.abbr, c.course_title, p.id , p.student_id, p.date, p.content, s.firstname, s.lastname, s.email FROM courses c, posts p, takes t, student s WHERE p.student_id=s.id AND c.id=p.courses_id AND t.courses_id=c.id AND t.student_id=$1 ORDER BY p.date DESC', [req.user.id], function(err2, res2){
@@ -234,7 +262,7 @@ router.get('/newPosts', function(req, res, next){
 
 router.get('/getchatinfo/:id', function(req, res, next){
   if (req.isAuthenticated()){
-    db.query('SELECT s.id, s.firstname, s.lastname, s.email FROM hasrelationship h, student s WHERE (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.id=$2', [req.user.id, res.params.id], function(err2, res2){
+    db.query('SELECT s.id, s.firstname, s.lastname, s.email FROM hasrelationship h, student s WHERE (h.first_stud_id=s.id OR h.second_stud_id=s.id) AND s.id<>$1 AND h.id=$2', [req.user.id, req.params.id], function(err2, res2){
       if (err2){
         console.log(err2)
       } else {

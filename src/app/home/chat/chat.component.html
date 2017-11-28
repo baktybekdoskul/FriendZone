@@ -1,9 +1,11 @@
 
   <p *ngIf="user==null">loading</p>
-  <p *ngIf="user!=null">{{user}}</p>
-<li *ngFor="let message of messgs">
-  <p *ngIf="message.student_send==myId" style="text-align: right">{{message.content}}</p>
-  <p *ngIf="message.student_send!=myId" style="text-align: left">{{message.content}}</p>
+  <h3 *ngIf="user!=null">Your interlocutor {{user.firstname}} {{user.lastname}}</h3>
+  <div ngClass="chat">
+<li *ngFor="let message of messgs" >
+  <div *ngIf="message.student_send==myId" style="text-align: right; width: 100%;"><div ngClass="mes"  style="background-color: lightgreen;">{{message.content}}</div></div>
+  <div *ngIf="message.student_send!=myId" style="text-align: left; width: 100%;"><div ngClass="mes"  style="background-color: lightblue;">{{message.content}}</div></div>
 </li>
+  </div>
 <input id="input" type="text" size="30" pInputText [(ngModel)]="messageText">
-<button pButton type="button" (click)="onclick(messageText)" label="Click"></button>
+<button pButton type="button" (click)="onclick(messageText)" label="Send"></button>

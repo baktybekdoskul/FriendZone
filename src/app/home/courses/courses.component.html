@@ -1,9 +1,9 @@
 <p-tabView>
   <p-tabPanel header="Available courses">
     <p-autoComplete [(ngModel)]="course" [suggestions]="filteredCourses" (completeMethod)="getCourseByAbbr($event)" field="abbr" [size]="30"
-                    placeholder="Abbreviation" [minLength]="1"></p-autoComplete>
+                    placeholder="Abbreviation" [minLength]="1" (keyup)="handleLastDelAbbr($event)" (onSelect)="selectHandle()"></p-autoComplete>
     <p-autoComplete [(ngModel)]="course" [suggestions]="filteredCourses" (completeMethod)="getCourseTitle($event)" field="course_title" [size]="30"
-                    placeholder="Course title" [minLength]="1"></p-autoComplete>
+                    placeholder="Course title" [minLength]="1" (keyup)="handleLastDelTitle($event)" (onSelect)="selectHandle()"></p-autoComplete>
     <br/>
     <br/>
     <br/>
